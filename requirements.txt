@@ -1,0 +1,9 @@
+Flask
+yfinance
+pandas
+plotly
+mysql-connector-python
+textblob
+nltk
+requests
+werkzeug

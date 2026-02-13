@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="display-4 fw-bold">Welcome to StockApp 📊</h1>
+  <p class="lead">Analyze stocks, track your portfolio, and stay updated with real-time news & sentiment.</p>
+  {% if not session.get('username') %}
+    <a href="/register" class="btn btn-primary btn-lg me-2">Get Started</a>
+    <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
+  {% else %}
+    <a href="/dashboard" class="btn btn-success btn-lg">Go to Dashboard</a>
+  {% endif %}
+</div>
+{% endblock %}

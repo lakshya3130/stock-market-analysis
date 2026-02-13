@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-4">📰 Company News</h2>
+{% if message %}
+<div class="alert alert-warning">{{ message }}</div>
+{% endif %}
+
+<div class="row">
+  {% for news in headlines %}
+  <div class="col-md-6 mb-3">
+    <div class="card p-3">
+      <h6>{{ news.title }}</h6>
+      <small class="text-muted">Source: {{ news.source }}</small><br>
+      <span class="badge 
+        {% if news.sentiment=='Positive' %}bg-success
+        {% elif news.sentiment=='Negative' %}bg-danger
+        {% else %}bg-secondary{% endif %}">
+        {{ news.sentiment }}
+      </span>
+      <a href="{{ news.url }}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Read</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

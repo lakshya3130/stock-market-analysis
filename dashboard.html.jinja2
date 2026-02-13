@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0 rounded-5 mb-4 bg-gradient" style="background: linear-gradient(90deg, #e0efff 60%, #f8fafd 100%);">
+        <div class="card-body py-5">
+          <h2 class="fw-bold mb-3 text-primary"><i class="fa fa-chart-line me-2"></i>Stock Dashboard</h2>
+          <form method="POST" class="d-flex justify-content-center mb-4">
+            <input type="text" name="symbol" class="form-control w-50 me-2 border-primary border-2 rounded-4" placeholder="Enter Stock Symbol (e.g., RELIANCE.NS)" required>
+            <button class="btn btn-primary rounded-4 px-4"><i class="fa fa-search me-1"></i>Get Data</button>
+          </form>
+          <small class="text-muted d-block text-center mb-4">Type your preferred symbol and get up-to-date stats!</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if stock_symbol %}
+  <div class="row g-4 align-items-center">
+    <!-- Stock Info Card -->
+    <div class="col-md-4">
+      <div class="card shadow-lg border-0 rounded-4 h-100 animate__animated animate__fadeInLeft" style="background: linear-gradient(120deg, #e8fafa 65%, #e7e6f5 100%);">
+        <div class="card-body py-4 text-center">
+          <h4 class="fw-bold mb-1 text-primary"><i class="fa fa-coins me-2"></i>{{ stock_symbol }}</h4>
+          <h2 class="text-success mb-2">₹ {{ price }}</h2>
+          <p class="text-muted small mb-3"><i class="fa fa-info-circle me-1"></i>Latest Closing Price</p>
+          <!-- Related News button removed -->
+        </div>
+      </div>
+    </div>
+    <!-- Chart -->
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4 h-100 animate__animated animate__fadeInRight">
+        <div class="card-body py-4">
+          <h5 class="fw-bold mb-3 text-primary"><i class="fa fa-calendar-week me-2"></i>Last 7 Days Trend</h5>
+          <canvas id="stockChart" height="180"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!-- Animate.css for subtle transitions -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  {% if stock_symbol %}
+  const ctx = document.getElementById('stockChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: {{ dates|tojson }},
+      datasets: [{
+        label: '{{ stock_symbol }} Price',
+        data: {{ prices|tojson }},
+        borderColor: 'rgba(12, 130, 235, 1)',
+        backgroundColor: 'rgba(12, 130, 235, 0.1)',
+        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+        pointBorderColor: '#fff',
+        fill: true,
+        tension: 0.4,
+        borderWidth: 3,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointStyle: 'rectRounded',
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true, labels: { color:'#0d6efd', font: {weight:"bold"} } },
+        tooltip: {
+          backgroundColor: '#0d6efd',
+          titleColor: '#fff',
+          bodyColor: '#e0efff',
+          padding: 12,
+          borderColor: '#0d6efd',
+        }
+      },
+      scales: {
+        x: { ticks: { color:'#111827', font: { weight:'bold'} }, grid: { display:false } },
+        y: { beginAtZero: false, ticks: { color:'#111827', font:{weight:"bold"} }, grid: { color:'#f3f4f6' } }
+      }
+    }
+  });
+  {% endif %}
+</script>
+{% endblock %}

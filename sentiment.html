@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="fw-bold text-center mb-4">📰 Sentiment Analysis - {{ stock_symbol }}</h2>
+
+  <!-- Sentiment Pie Chart -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+          <h5 class="fw-bold text-center">Overall Sentiment</h5>
+          <canvas id="sentimentChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- News Sentiment Cards -->
+  <div class="row">
+    {% for news in headlines %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-lg border-0 rounded-4 h-100">
+        <div class="card-body">
+          <span class="badge {% if news.sentiment == 'Positive' %}bg-success
+                             {% elif news.sentiment == 'Negative' %}bg-danger
+                             {% else %}bg-secondary{% endif %} mb-2">
+            {{ news.sentiment }}
+          </span>
+          <h6 class="fw-bold">{{ news.title }}</h6>
+          <p class="text-muted mb-1">Source: {{ news.source }}</p>
+          <a href="{{ news.url }}" class="btn btn-sm btn-outline-primary mt-2" target="_blank">Read More</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('sentimentChart').getContext('2d');
+const sentimentChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Positive', 'Negative', 'Neutral'],
+        datasets: [{
+            data: [
+                {{ sentiment_counts['Positive'] | default(0) }},
+                {{ sentiment_counts['Negative'] | default(0) }},
+                {{ sentiment_counts['Neutral'] | default(0) }}
+            ],
+            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+              position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
