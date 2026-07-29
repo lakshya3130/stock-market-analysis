@@ -11,8 +11,8 @@ app.secret_key = 'your_secret_key'
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': 'Lakshya@19',
-    'database': 'stock_app'
+    'password': 'Password',
+    'database': 'Database_name'
 }
 
 db = mysql.connector.connect(**db_config)
