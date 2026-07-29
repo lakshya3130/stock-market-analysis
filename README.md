@@ -41,98 +41,80 @@ A Flask-based Stock Market Analysis web application that provides users with rea
 
 ## 📂 Project Structure
 
-```
-stock-market-analysis/
+```text
+stock_market_analyze/
 │
 ├── app.py
-├── config.py
-├── database.py
 ├── requirements.txt
-├── schema.sql
+├── README.md
 │
-├── templates/
-│   ├── dashboard.html
-│   ├── login.html
-│   ├── register.html
-│   ├── news.html
-│   ├── sentiment.html
-│   ├── portfolio.html
+├── database/
+│   └── schema.sql
 │
 ├── static/
-│   ├── style.css
+│   └── style.css
 │
-└── README.md
+├── templates/
+│   ├── dashboard.html.jinja2
+│   ├── index.html
+│   ├── layout.html
+│   ├── login.html
+│   ├── news.html
+│   ├── portfolio.html
+│   ├── register.html
+│   └── sentiment.html
 ```
 
 ---
 
 ## ⚙️ Installation
 
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/lakshya3130/stock-market-analysis.git
 ```
 
-### 2. Navigate to the Project
+### 2. Move to the project directory
 
 ```bash
 cd stock-market-analysis
 ```
 
-### 3. Create a Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### 4. Activate Virtual Environment
-
-Windows
-
-```bash
-venv\Scripts\activate
-```
-
-Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-### 5. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Configure MySQL Database
+### 4. Create the MySQL database
 
-Create a MySQL database and import:
+Import the SQL file located at:
 
-```sql
-schema.sql
+```text
+database/schema.sql
 ```
 
-Update your database credentials inside:
+### 5. Update the MySQL connection details
 
-```
-config.py
-```
+Open **app.py** and update:
 
-### 7. Run the Application
+- Host
+- Username
+- Password
+- Database Name
+
+### 6. Run the application
 
 ```bash
 python app.py
 ```
 
-Open your browser:
+Open your browser and visit:
 
 ```
 http://127.0.0.1:5000
 ```
-
----
 
 ## 📸 Screens
 
