@@ -1,4 +1,4 @@
-# stock-market-analysis
+
 # 📈 Stock Market Analysis
 
 A Flask-based Stock Market Analysis web application that provides users with real-time stock information, latest financial news, sentiment analysis, and portfolio management.
